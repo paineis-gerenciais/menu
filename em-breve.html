@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Em breve · Painéis Gerenciais</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --vermelho: #8b0a0a; --dourado: #d4a24c; --veu: rgba(255, 255, 255, .6); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #f7f3f2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 24px 16px;
+    text-align: center;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(var(--veu), var(--veu)), url("assets/fundo.webp") center / cover no-repeat;
+  }
+  img { width: min(420px, 80vw); height: auto; }
+  h1 { margin: 0; font-size: clamp(32px, 7vw, 52px); color: var(--vermelho); letter-spacing: .02em; }
+  p { margin: 0; color: #5a4a4a; }
+  a {
+    color: var(--vermelho);
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid var(--dourado);
+    border-radius: 999px;
+    padding: 10px 22px;
+    background: rgba(255, 255, 255, .7);
+  }
+  a:hover { background: #fff; }
+  a:focus-visible { outline: 3px solid var(--dourado); outline-offset: 2px; }
+</style>
+</head>
+<body>
+  <img src="assets/logo.webp" width="720" height="251" alt="Painéis Gerenciais">
+  <h1>Em breve</h1>
+  <p>Novos painéis estão sendo preparados.</p>
+  <a href="./">Voltar ao menu</a>
+</body>
+</html>
