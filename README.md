@@ -12,4 +12,4 @@ Publicação: GitHub Pages → https://paineis-gerenciais.github.io/menu/
 
 ## Adicionar ou trocar um painel
 
-Edite o `href` do `<li>` correspondente em `index.html`. Para um botão novo, salve a imagem em WebP com 720 px de largura em `assets/` e copie um `<li>` existente.
+Edite o `href` do `<li>` correspondente em `index.html`. Para um botão novo, salve a imagem em WebP com 720 px de largura em `assets/` e copie um `<li>` existente. O botão "Outros" deve ser sempre o último: insira novos painéis acima dele.

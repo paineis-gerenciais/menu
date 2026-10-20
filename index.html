@@ -58,6 +58,8 @@
   .grade a:focus-visible { outline: 3px solid var(--dourado); outline-offset: 2px; }
   .grade img { display: block; width: 100%; height: auto; }
   footer { text-align: center; font-size: 13px; padding: 0 16px 20px; color: #6b5a5a; }
+  /* Botão sozinho na última linha fica centralizado (grade de 3 colunas) */
+  @media (min-width: 901px) { .grade li:last-child:nth-child(3n+1) { grid-column: 2; } }
   @media (max-width: 900px) { .grade { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 560px) {
     header { padding-top: 28px; }
@@ -77,11 +79,13 @@
       <li><a href="https://paineis-gerenciais.github.io/gestao-projetos/" target="_blank" rel="noopener" aria-label="Gestão de Projetos (abre em nova aba)"><img src="assets/btn-gestao-projetos.webp" width="720" height="240" alt=""></a></li>
       <li><a href="https://paineis-gerenciais.github.io/organograma/" target="_blank" rel="noopener" aria-label="Organograma (abre em nova aba)"><img src="assets/btn-organograma.webp" width="720" height="240" alt=""></a></li>
       <li><a href="https://paineis-gerenciais.github.io/processos/" target="_blank" rel="noopener" aria-label="Processos (abre em nova aba)"><img src="assets/btn-processos.webp" width="720" height="240" alt=""></a></li>
+      <li><a href="https://paineis-gerenciais.github.io/processos-acao/" target="_blank" rel="noopener" aria-label="Implantação de processos: plano de ação e indicadores (abre em nova aba)"><img src="assets/btn-implantacao-processos.webp" width="720" height="240" alt="" loading="lazy"></a></li>
       <li><a href="https://paineis-gerenciais.github.io/gestao-mudancas/" target="_blank" rel="noopener" aria-label="Gestão de Mudanças (abre em nova aba)"><img src="assets/btn-gestao-mudancas.webp" width="720" height="240" alt="" loading="lazy"></a></li>
       <li><a href="https://paineis-gerenciais.github.io/cadeia-valor/" target="_blank" rel="noopener" aria-label="Cadeia de Valor (abre em nova aba)"><img src="assets/btn-cadeia-valor.webp" width="720" height="240" alt="" loading="lazy"></a></li>
       <li><a href="https://paineis-gerenciais.github.io/matriz-risco/" target="_blank" rel="noopener" aria-label="Matriz de Risco (abre em nova aba)"><img src="assets/btn-matriz-risco.webp" width="720" height="240" alt="" loading="lazy"></a></li>
       <li><a href="https://paineis-gerenciais.github.io/matriz-stakeholders/" target="_blank" rel="noopener" aria-label="Matriz de Stakeholders (abre em nova aba)"><img src="assets/btn-matriz-stakeholders.webp" width="720" height="240" alt="" loading="lazy"></a></li>
       <li><a href="https://paineis-gerenciais.github.io/autoavaliacao/" target="_blank" rel="noopener" aria-label="Autoavaliação de Gestores (abre em nova aba)"><img src="assets/btn-autoavaliacao-gestores.webp" width="720" height="240" alt="" loading="lazy"></a></li>
+      <!-- "Outros" deve ser sempre o último botão: novos painéis entram acima desta linha -->
       <li><a href="em-breve.html" target="_blank" rel="noopener" aria-label="Outros (abre em nova aba)"><img src="assets/btn-outros.webp" width="720" height="240" alt="" loading="lazy"></a></li>
     </ul>
   </nav>
