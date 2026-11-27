@@ -4,50 +4,40 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Em breve · Painéis Gerenciais</title>
-<link rel="icon" href="data:,">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <style>
-  :root { --vermelho: #8b0a0a; --dourado: #d4a24c; --veu: rgba(255, 255, 255, .6); }
+  :root { --vinho: #6e1420; --texto: #24272e; --texto-suave: #6b6f78; --linha-fina: #e2ddd5; --ouro: #b0904f; --base: #f6f3ee; }
   * { box-sizing: border-box; }
   html, body { margin: 0; }
   body {
     min-height: 100vh;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    background: #f7f3f2;
+    color: var(--texto);
+    background: var(--base);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 24px;
+    gap: 20px;
     padding: 24px 16px;
     text-align: center;
   }
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background: linear-gradient(var(--veu), var(--veu)), url("assets/fundo.webp") center / cover no-repeat;
-  }
-  img { width: min(420px, 80vw); height: auto; }
-  h1 { margin: 0; font-size: clamp(32px, 7vw, 52px); color: var(--vermelho); letter-spacing: .02em; }
-  p { margin: 0; color: #5a4a4a; }
+  svg { width: 84px; height: 84px; }
+  h1 { margin: 0; font-size: clamp(30px, 6vw, 44px); font-weight: 700; letter-spacing: -.015em; }
+  p { margin: 0; font-size: 17px; color: var(--texto-suave); }
   a {
-    color: var(--vermelho);
-    font-weight: 600;
-    text-decoration: none;
-    border: 2px solid var(--dourado);
-    border-radius: 999px;
-    padding: 10px 22px;
-    background: rgba(255, 255, 255, .7);
+    display: inline-flex; align-items: center; min-height: 44px; padding: 8px 18px;
+    color: var(--texto); font-weight: 600; text-decoration: none;
+    background: #fff; border: 1px solid var(--linha-fina); border-radius: 8px;
   }
-  a:hover { background: #fff; }
-  a:focus-visible { outline: 3px solid var(--dourado); outline-offset: 2px; }
+  a:hover { border-color: var(--vinho); }
+  a:focus-visible { outline: 3px solid var(--ouro); outline-offset: 3px; }
 </style>
 </head>
 <body>
-  <img src="assets/logo.webp" width="720" height="251" alt="Painéis Gerenciais">
+  <svg viewBox="0 0 96 96" aria-hidden="true"><g fill="#6e1420"><rect x="2" y="62" width="27" height="32" rx="3"/><rect x="34.5" y="38" width="27" height="56" rx="3"/><rect x="67" y="2" width="27" height="92" rx="3"/></g><rect fill="#24272e" x="2" y="2" width="27" height="54.5" rx="3"/><rect fill="#b0904f" x="34.5" y="2" width="27" height="30.5" rx="3"/></svg>
   <h1>Em breve</h1>
   <p>Novos painéis estão sendo preparados.</p>
-  <a href="./">Voltar ao menu</a>
+  <a href="./">← Voltar ao menu</a>
 </body>
 </html>

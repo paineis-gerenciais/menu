@@ -5,22 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Painéis Gerenciais</title>
 <meta name="description" content="Menu geral dos Painéis Gerenciais.">
-<link rel="preload" as="image" href="assets/logo.webp" type="image/webp">
-<link rel="icon" href="data:,">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icone-180.png">
 <style>
+  /* ---------- Fundo: troque aqui quando a imagem chegar (ver README) ---------- */
   :root {
-    --vermelho: #8b0a0a;
-    --dourado: #d4a24c;
-    --texto: #3a2a2a;
-    --veu: rgba(255, 255, 255, .55);
+    --fundo: url("assets/fundo-sobrio.webp");  /* imagem de fundo; troque por "none" para voltar ao marfim liso */
+    --veu: rgba(246, 243, 238, .3);   /* véu marfim por cima da imagem; aumente o último número para clarear */
+    --base: #f6f3ee;                  /* marfim */
+    --texto: #24272e;                 /* grafite */
+    --texto-suave: #6b6f78;
+    --linha-fina: #e2ddd5;
+    --ouro: #b0904f;
   }
+  /* ---------- Cor de cada família ---------- */
+  .vinho { --cor: #6e1420; }
+  .azul  { --cor: #23346b; }
+  .verde { --cor: #1f5244; }
+
   * { box-sizing: border-box; }
   html, body { margin: 0; }
   body {
     min-height: 100vh;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     color: var(--texto);
-    background: #f7f3f2;
+    background: var(--base);
     display: flex;
     flex-direction: column;
   }
@@ -30,63 +39,105 @@
     position: fixed;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(var(--veu), var(--veu)), url("assets/fundo.webp") center / cover no-repeat;
+    background: linear-gradient(var(--veu), var(--veu)), var(--fundo) center / cover no-repeat, var(--base);
   }
-  header { text-align: center; padding: 40px 16px 8px; }
-  header img { width: min(480px, 85vw); height: auto; }
-  h1 {
-    position: absolute; width: 1px; height: 1px; overflow: hidden;
-    clip: rect(0 0 0 0); white-space: nowrap;
+  .voltar {
+    position: absolute; top: 16px; left: 16px;
+    display: inline-flex; align-items: center; min-height: 44px; padding: 8px 16px;
+    font-weight: 600; font-size: 15px; text-decoration: none; color: var(--texto);
+    background: #fff; border: 1px solid var(--linha-fina); border-radius: 8px;
   }
-  main { flex: 1; padding: 16px 16px 40px; }
+  .voltar:hover { border-color: var(--texto); }
+  header { text-align: center; padding: 48px 16px 12px; }
+  .simbolo { display: block; width: 84px; height: 84px; margin: 0 auto 18px; }
+  .marca { display: block; width: min(330px, 78vw); height: auto; margin: 0 auto; }
+  .oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .sobretitulo {
+    margin: 0 0 6px; font-size: 13px; font-weight: 700; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--texto-suave);
+  }
+  h1 { margin: 0; font-size: clamp(27px, 4.6vw, 40px); font-weight: 700; letter-spacing: -.015em; text-wrap: balance; }
+  .chamada { margin: 8px auto 0; max-width: 34em; font-size: 17px; color: var(--texto-suave); text-wrap: pretty; }
+  main { flex: 1; padding: 26px 16px 48px; }
   .grade {
-    list-style: none;
-    margin: 0 auto;
-    padding: 0;
-    max-width: 1160px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px 20px;
+    list-style: none; margin: 0 auto; padding: 0; max-width: 1180px;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 20px;
   }
-  .grade a {
-    display: block;
-    border-radius: 18px;
-    transition: transform .18s ease, filter .18s ease;
+  .grade li { width: min(372px, 100%); display: flex; }
+
+  /* ---------- Botão: cartão branco com um bloco de cor (como os blocos da marca) ---------- */
+  .botao {
+    position: relative; flex: 1;
+    display: flex; align-items: center; gap: 16px;
+    min-height: 92px; padding: 12px 18px 12px 12px;
+    background: #fff; border: 1px solid var(--linha-fina); border-radius: 12px;
+    color: var(--texto); text-decoration: none;
+    box-shadow: 0 1px 2px rgba(36, 39, 46, .05);
+    transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
   }
-  .grade a:hover { transform: translateY(-3px) scale(1.02); filter: brightness(1.08) drop-shadow(0 8px 14px rgba(139, 10, 10, .25)); }
-  .grade a:active { transform: translateY(0) scale(.99); }
-  .grade a:focus-visible { outline: 3px solid var(--dourado); outline-offset: 2px; }
-  .grade img { display: block; width: 100%; height: auto; }
-  footer { text-align: center; font-size: 13px; padding: 0 16px 20px; color: #6b5a5a; }
-  /* Botão sozinho na última linha fica centralizado (grade de 3 colunas) */
-  @media (min-width: 901px) { .grade li:last-child:nth-child(3n+1) { grid-column: 2; } }
-  @media (max-width: 900px) { .grade { grid-template-columns: repeat(2, 1fr); } }
+  a.botao:hover { transform: translateY(-2px); border-color: var(--cor); box-shadow: 0 8px 18px rgba(36, 39, 46, .12); }
+  a.botao:active { transform: translateY(0); }
+  .botao:focus-visible, .voltar:focus-visible { outline: 3px solid var(--ouro); outline-offset: 3px; }
+  .icone {
+    flex: none; display: grid; place-items: center;
+    width: 68px; height: 68px; border-radius: 8px;
+    background: var(--cor); color: #fff;
+  }
+  .icone svg { width: 38px; height: 38px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .icone .cheio { fill: currentColor; stroke: none; }
+  .rotulo { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .linha { font-size: 13.5px; font-weight: 600; letter-spacing: .01em; color: var(--cor); }
+  .nome { font-size: 21px; font-weight: 700; letter-spacing: -.01em; line-height: 1.15; text-wrap: balance; }
+  /* ---------- Em breve: sem clique, apagado, com selo ---------- */
+  .breve { background: rgba(255, 255, 255, .84); border-style: dashed; box-shadow: none; cursor: default; }
+  .breve .icone { background: #b3aea6; }
+  .breve .linha, .breve .nome { color: var(--texto-suave); }
+  .selo {
+    position: absolute; top: 9px; right: 10px;
+    padding: 2px 8px; border: 1px solid #cdc7be; border-radius: 999px; background: #fff;
+    font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--texto-suave);
+  }
+  footer { text-align: center; font-size: 13px; padding: 0 16px 20px; color: var(--texto-suave); }
+
   @media (max-width: 560px) {
-    header { padding-top: 28px; }
-    .grade { grid-template-columns: 1fr; max-width: 420px; gap: 6px; }
+    header { padding-top: 40px; }
+    .simbolo { width: 68px; height: 68px; margin-bottom: 14px; }
+    .grade { gap: 10px; }
+    .botao { min-height: 84px; }
+    .icone { width: 60px; height: 60px; }
+    .icone svg { width: 34px; height: 34px; }
+    .nome { font-size: 19.5px; }
+    .botao.porta { flex-direction: row; }
+    .porta .topo { width: 104px; height: auto; flex: none; }
+    .porta .topo svg { width: 56px; height: 56px; }
+    .porta .rotulo { padding: 14px 16px; }
+    .porta .nome { font-size: 20px; }
+    .porta .linha { font-size: 14.5px; }
+    .porta .abrir { display: none; }
   }
-  @media (prefers-reduced-motion: reduce) { .grade a { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .botao { transition: none; } }
 </style>
 </head>
 <body>
 <header>
-  <img src="assets/logo.webp" width="720" height="251" alt="Painéis Gerenciais">
-  <h1>Painéis Gerenciais</h1>
+  <svg class="marca" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320.72 96" width="320.72" height="96" aria-hidden="true"><g fill="#6e1420"><rect x="2" y="62" width="27" height="32" rx="3"/><rect x="34.5" y="38" width="27" height="56" rx="3"/><rect x="67" y="2" width="27" height="92" rx="3"/></g><rect fill="#24272e" x="2" y="2" width="27" height="54.5" rx="3"/><rect fill="#b0904f" x="34.5" y="2" width="27" height="30.5" rx="3"/><path fill="#24272e" d="M123.06 51.64H129.59V38.39H137C145.08 38.39 150.27 33.82 150.27 26.58C150.27 19.37 145.2 14.82 137.12 14.82H123.06ZM129.59 32.81V20.41H136.75C141.15 20.41 143.84 22.75 143.84 26.58C143.84 30.44 141.15 32.81 136.75 32.81ZM150.17 51.64H157.19L160.2 42.84H174.48L177.42 51.64H184.61L171.52 14.82H163.32ZM162.03 37.48 163.81 32.29C164.92 28.91 166.03 25.37 167.42 20.73C168.8 25.37 169.89 28.91 170.97 32.29L172.7 37.48ZM196.8 14.82H190.27V51.64H196.8ZM205.2 51.64H211.72V33.13C211.72 31.52 211.7 28.36 211.55 24.26C213.8 28.24 215.75 31.5 216.79 33.16L228.45 51.64H235.52V14.82H228.97V34.88C228.97 36.34 229.02 39.41 229.12 42.17C227.66 39.55 226.03 36.74 225.16 35.35L212.24 14.82H205.2ZM243.92 51.64H269.49V45.98H250.44V35.72H268.06V30.17H250.44V20.48H269.49V14.82H243.92ZM254.15 11.56H258.72L264.5 3.95H258.15ZM283.01 14.82H276.49V51.64H283.01ZM304.73 52.23C313.46 52.23 318.92 47.88 318.92 41.01C318.92 35.6 315.48 32.41 307.85 30.71L304.12 29.84C299.32 28.73 297.42 27.35 297.42 24.88C297.42 21.86 300.31 19.76 304.39 19.76C308.69 19.76 311.5 22.11 311.77 25.99H317.98C317.75 18.68 312.64 14.23 304.41 14.23C296.28 14.23 290.87 18.63 290.87 25.2C290.87 30.36 294.26 33.6 301.62 35.28L305.57 36.17C310.49 37.31 312.42 38.81 312.42 41.41C312.42 44.64 309.38 46.72 304.78 46.72C299.67 46.72 296.6 44.08 296.56 39.63H290.16C290.16 47.51 295.62 52.23 304.73 52.23Z"/><path fill="#6e1420" d="M127.45 81.37C130.86 81.37 133.32 79.14 133.32 75.59V73.98H127.77V75.75H131.21C131.17 77.99 129.69 79.41 127.46 79.41C124.99 79.41 123.19 77.54 123.19 74.16C123.19 70.76 125.01 68.91 127.38 68.91C129.23 68.91 130.48 69.93 130.99 71.57H133.19C132.72 68.84 130.39 66.95 127.36 66.95C123.72 66.95 121.06 69.68 121.06 74.17C121.06 78.6 123.64 81.37 127.45 81.37ZM145.44 81.18H154.33V79.33H147.59V75H153.81V73.17H147.59V68.98H154.28V67.14H145.44ZM166.53 81.18H168.68V75.87H171.54C171.58 75.87 171.63 75.87 171.67 75.87L174.51 81.18H176.95L173.86 75.5C175.57 74.86 176.42 73.43 176.42 71.55C176.42 68.95 174.81 67.14 171.56 67.14H166.53ZM168.68 74.03V68.97H171.32C173.39 68.97 174.25 69.96 174.25 71.55C174.25 73.12 173.39 74.03 171.34 74.03ZM188.49 81.18H197.39V79.33H190.64V75H196.86V73.17H190.64V68.98H197.33V67.14H188.49ZM209.58 81.18H211.76V73.69C211.76 72.96 211.68 71.51 211.6 69.75C212.62 71.63 213.15 72.6 213.84 73.7L218.58 81.18H221.07V67.14H218.89V75.13C218.89 75.94 218.93 77.25 219.03 78.6C218.41 77.26 217.78 76.19 217.35 75.49L212.06 67.14H209.58ZM239.47 81.37C242.57 81.37 244.83 79.41 245.26 76.63H243.1C242.74 78.42 241.24 79.41 239.49 79.41C237.08 79.41 235.27 77.58 235.27 74.17C235.27 70.77 237.07 68.91 239.49 68.91C241.24 68.91 242.74 69.89 243.1 71.68H245.25C244.78 68.7 242.43 66.95 239.47 66.95C235.83 66.95 233.14 69.66 233.14 74.17C233.14 78.65 235.82 81.37 239.47 81.37ZM259.39 67.14H257.24V81.18H259.39ZM270.88 81.18H273.21L274.46 77.47H279.98L281.28 81.18H283.6L278.51 67.14H275.88ZM275.07 75.68 275.86 73.37C276.21 72.29 276.64 70.83 277.19 68.82C277.74 70.81 278.17 72.24 278.54 73.37L279.35 75.68ZM297.24 67.14H295.09V81.18H297.24ZM314.52 81.41C317.82 81.41 319.72 79.68 319.72 77.29C319.72 74.76 317.47 73.8 315.68 73.34L314.31 72.98C313.24 72.7 311.79 72.2 311.79 70.87C311.79 69.68 312.86 68.81 314.57 68.81C316.16 68.81 317.3 69.55 317.44 70.83H319.53C319.47 68.6 317.5 66.95 314.61 66.95C311.79 66.95 309.64 68.56 309.64 70.99C309.64 72.91 310.99 74.09 313.29 74.7L314.93 75.16C316.44 75.56 317.6 76.04 317.6 77.27C317.6 78.62 316.29 79.53 314.51 79.53C312.89 79.53 311.53 78.81 311.41 77.28H309.25C309.38 79.84 311.36 81.41 314.52 81.41Z"/></svg>
+  <h1 class="oculto">Painéis Gerenciais</h1>
 </header>
 <main>
   <nav aria-label="Painéis">
     <ul class="grade">
-      <li><a href="https://paineis-gerenciais.github.io/gestao-projetos/" target="_blank" rel="noopener" aria-label="Gestão de Projetos (abre em nova aba)"><img src="assets/btn-gestao-projetos.webp" width="720" height="240" alt=""></a></li>
-      <li><a href="https://paineis-gerenciais.github.io/organograma/" target="_blank" rel="noopener" aria-label="Organograma (abre em nova aba)"><img src="assets/btn-organograma.webp" width="720" height="240" alt=""></a></li>
-      <li><a href="https://paineis-gerenciais.github.io/processos/" target="_blank" rel="noopener" aria-label="Processos (abre em nova aba)"><img src="assets/btn-processos.webp" width="720" height="240" alt=""></a></li>
-      <li><a href="https://paineis-gerenciais.github.io/processos-acao/" target="_blank" rel="noopener" aria-label="Implantação de processos: plano de ação e indicadores (abre em nova aba)"><img src="assets/btn-implantacao-processos.webp" width="720" height="240" alt="" loading="lazy"></a></li>
-      <li><a href="https://paineis-gerenciais.github.io/gestao-mudancas/" target="_blank" rel="noopener" aria-label="Gestão de Mudanças (abre em nova aba)"><img src="assets/btn-gestao-mudancas.webp" width="720" height="240" alt="" loading="lazy"></a></li>
-      <li><a href="https://paineis-gerenciais.github.io/cadeia-valor/" target="_blank" rel="noopener" aria-label="Cadeia de Valor (abre em nova aba)"><img src="assets/btn-cadeia-valor.webp" width="720" height="240" alt="" loading="lazy"></a></li>
-      <li><a href="https://paineis-gerenciais.github.io/matriz-risco/" target="_blank" rel="noopener" aria-label="Matriz de Risco (abre em nova aba)"><img src="assets/btn-matriz-risco.webp" width="720" height="240" alt="" loading="lazy"></a></li>
-      <li><a href="https://paineis-gerenciais.github.io/matriz-stakeholders/" target="_blank" rel="noopener" aria-label="Matriz de Stakeholders (abre em nova aba)"><img src="assets/btn-matriz-stakeholders.webp" width="720" height="240" alt="" loading="lazy"></a></li>
-      <li><a href="https://paineis-gerenciais.github.io/autoavaliacao/" target="_blank" rel="noopener" aria-label="Autoavaliação de Gestores (abre em nova aba)"><img src="assets/btn-autoavaliacao-gestores.webp" width="720" height="240" alt="" loading="lazy"></a></li>
+      <li><a class="botao vinho" href="https://paineis-gerenciais.github.io/gestao-projetos/" target="_blank" rel="noopener" aria-label="Gestão de Projetos (abre em nova aba)"><span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v16h16"/><path d="M7.5 7.5h7M10 11.5h8M7.5 15.5h5"/></svg></span><span class="rotulo"><span class="linha">Gestão de</span><span class="nome">Projetos</span></span></a></li>
+      <li><a class="botao vinho" href="https://paineis-gerenciais.github.io/organograma/" target="_blank" rel="noopener" aria-label="Organograma (abre em nova aba)"><span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3.5" width="6" height="5" rx="1"/><rect x="3" y="15.5" width="6" height="5" rx="1"/><rect x="15" y="15.5" width="6" height="5" rx="1"/><path d="M12 8.5V12M6 15.5V12h12v3.5"/></svg></span><span class="rotulo"><span class="nome">Organograma</span></span></a></li>
+      <li><a class="botao vinho" href="https://paineis-gerenciais.github.io/processos/" target="_blank" rel="noopener" aria-label="Processos (abre em nova aba)"><span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="8" height="5.5" rx="1"/><rect x="13" y="14.5" width="8" height="5.5" rx="1"/><path d="M11 6.7h4a2 2 0 0 1 2 2v5.5M14.8 12l2.2 2.3 2.2-2.3"/></svg></span><span class="rotulo"><span class="nome">Processos</span></span></a></li>
+      <li><a class="botao vinho" href="https://paineis-gerenciais.github.io/processos-acao/" target="_blank" rel="noopener" aria-label="Implantação de processos: plano de ação e indicadores (abre em nova aba)"><span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5l1.5 1.5L8 5M4 12.5l1.5 1.5L8 11M11 6.5h9M11 12.5h5"/><path d="M5 20l4.5-3.5 3 2L20 13M16.5 13H20v3.5"/></svg></span><span class="rotulo"><span class="linha">Plano de ação e indicadores</span><span class="nome">Implantação de Processos</span></span></a></li>
+      <li><a class="botao vinho" href="https://paineis-gerenciais.github.io/gestao-mudancas/" target="_blank" rel="noopener" aria-label="Gestão de Mudanças (abre em nova aba)"><span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 9.5A8 8 0 0 0 5 8.5M4.5 14.5A8 8 0 0 0 19 15.5"/><path d="M5 4.5v4h4M19 19.5v-4h-4"/></svg></span><span class="rotulo"><span class="linha">Gestão de</span><span class="nome">Mudanças</span></span></a></li>
+      <li><a class="botao vinho" href="https://paineis-gerenciais.github.io/cadeia-valor/" target="_blank" rel="noopener" aria-label="Cadeia de Valor (abre em nova aba)"><span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h5l3.5 6L8 18H3l3.5-6zM12.5 6h5L21 12l-3.5 6h-5l3.5-6z"/></svg></span><span class="rotulo"><span class="linha">Cadeia de</span><span class="nome">Valor</span></span></a></li>
+      <li><a class="botao vinho" href="https://paineis-gerenciais.github.io/matriz-risco/" target="_blank" rel="noopener" aria-label="Matriz de Risco (abre em nova aba)"><span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="1.5"/><path d="M9.33 4v16M14.67 4v16M4 9.33h16M4 14.67h16"/><rect class="cheio" x="14.67" y="4" width="5.33" height="5.33"/></svg></span><span class="rotulo"><span class="linha">Matriz de</span><span class="nome">Risco</span></span></a></li>
+      <li><a class="botao vinho" href="https://paineis-gerenciais.github.io/matriz-stakeholders/" target="_blank" rel="noopener" aria-label="Matriz de Stakeholders (abre em nova aba)"><span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6" r="2.5"/><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="18.5" cy="17.5" r="2.5"/><path d="M10.7 8.2l-3.9 7.1M13.3 8.2l3.9 7.1M8 17.5h8"/></svg></span><span class="rotulo"><span class="linha">Matriz de</span><span class="nome">Stakeholders</span></span></a></li>
+      <li><a class="botao vinho" href="https://paineis-gerenciais.github.io/autoavaliacao/" target="_blank" rel="noopener" aria-label="Autoavaliação de Gestores (abre em nova aba)"><span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 2.7-6 6-6 1.3 0 2.5.4 3.5 1.1M14.5 17.5l2.2 2.2 4.3-4.7"/></svg></span><span class="rotulo"><span class="linha">Autoavaliação de</span><span class="nome">Gestores</span></span></a></li>
+      <li><a class="botao vinho" href="https://paineis-gerenciais.github.io/calculadora-carreiras/" target="_blank" rel="noopener" aria-label="Simulador de Carreiras (abre em nova aba)"><span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h4.5v-4.5H12V11h4.5V6.5H21"/><path d="M3.5 11.5l5-5M8.5 10V6.5H5"/></svg></span><span class="rotulo"><span class="linha">Simulador de</span><span class="nome">Carreiras</span></span></a></li>
       <!-- "Outros" deve ser sempre o último botão: novos painéis entram acima desta linha -->
-      <li><a href="em-breve.html" target="_blank" rel="noopener" aria-label="Outros (abre em nova aba)"><img src="assets/btn-outros.webp" width="720" height="240" alt="" loading="lazy"></a></li>
+      <li><a class="botao vinho" href="em-breve.html" target="_blank" rel="noopener" aria-label="Outros (abre em nova aba)"><span class="icone"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.8"/><rect x="13" y="4" width="7" height="7" rx="1.8"/><rect x="4" y="13" width="7" height="7" rx="1.8"/><rect x="13" y="13" width="7" height="7" rx="1.8"/></svg></span><span class="rotulo"><span class="nome">Outros</span></span></a></li>
     </ul>
   </nav>
 </main>
