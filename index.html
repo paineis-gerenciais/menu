@@ -10,8 +10,8 @@
 <style>
   /* ---------- Fundo: troque aqui quando a imagem chegar (ver README) ---------- */
   :root {
-    --fundo: none;                    /* depois: url("assets/fundo.webp") */
-    --veu: rgba(246, 243, 238, .55);  /* véu marfim por cima da imagem de fundo */
+    --fundo: url("assets/fundo-sobrio.webp");  /* imagem de fundo; troque por "none" para voltar ao marfim liso */
+    --veu: rgba(246, 243, 238, .3);   /* véu marfim por cima da imagem; aumente o último número para clarear */
     --base: #f6f3ee;                  /* marfim */
     --texto: #24272e;                 /* grafite */
     --texto-suave: #6b6f78;
@@ -89,7 +89,7 @@
   .linha { font-size: 13.5px; font-weight: 600; letter-spacing: .01em; color: var(--cor); }
   .nome { font-size: 21px; font-weight: 700; letter-spacing: -.01em; line-height: 1.15; text-wrap: balance; }
   /* ---------- Em breve: sem clique, apagado, com selo ---------- */
-  .breve { background: rgba(255, 255, 255, .55); border-style: dashed; box-shadow: none; cursor: default; }
+  .breve { background: rgba(255, 255, 255, .84); border-style: dashed; box-shadow: none; cursor: default; }
   .breve .icone { background: #b3aea6; }
   .breve .linha, .breve .nome { color: var(--texto-suave); }
   .selo {
